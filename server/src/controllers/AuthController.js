@@ -34,6 +34,51 @@ const userRegistration = async (req, res) => {
   }
 }
 
+// login with email and password and return token
+const userLogin = async (req, res)  => {
+    try {
+         const body = req.body
+        const user = await User.findOne(
+            { mail: body.mail },
+            { createdAt: 0, updateAt: 0 }
+        )
+        if (user) {
+            const passwordCheck = await Bcrypt.compare(body.pass, user.pass)
+            if (passwordCheck) {
+                const token = Helper.createJwtAuthToken(user)
+                const users = await User.findOne(
+                    { _id: user._id }                 
+                ).populate('idTypeUser','name')
+                return res.status(200).send({
+                    status: true,
+                    message: "Logged-in successfully.",
+                    data: { user: users }
+                })
+            } else {
+                return res.status(200).send({
+                    status: false,
+                    message: "Wrong Password. Please try again.",
+                    data: {}
+                })
+            }
+        } else {
+            return res.status(200).send({
+                status: false,
+                message: "Username not found. Please register.",
+                data: {}
+            })
+        }
+
+    } catch (error) {
+        return res.status(200).send({
+            status: false,
+            message: error.message,
+            data: []
+        })
+    }
+}
+
 export default {
     userRegistration, 
+    userLogin
 }
