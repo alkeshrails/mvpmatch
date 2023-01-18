@@ -8,6 +8,8 @@ import Helper from '../utils/helpers'
 const addProduct = async (req, res) => {
     try {
         let body =  req.body ;
+        const userDetail = Helper.getMe(req.headers['x-access-token']);
+        body.userId = userDetail._id
         let product = await Product.findOne({ title: body.title })
         if (!product) {
             product = await Product.create(body)
@@ -86,6 +88,24 @@ const getProducts = async (req, res) => {
     }
 }
 
+const getProductsById = async (req, res) => {
+    try{
+        const userDetail = Helper.getMe(req.headers['x-access-token']);
+        const products = await Product.find({userId: userDetail._id})
+        return res.status(200).json({
+            status: true,
+            message: "Product fetched successfully.",
+            data: products,
+        })
+    }catch (error) {
+        return res.status(200).send({
+            status: false,
+            message: error.message,
+            data: []
+        })
+    }
+}
+
 const purchaseProduct =  async (req, res) => {
     try {
         const userDetail = Helper.getMe(req.headers['x-access-token']);
@@ -109,4 +129,5 @@ export default {
     getProducts,
     deleteProduct,
     purchaseProduct,
+    getProductsById
 }
