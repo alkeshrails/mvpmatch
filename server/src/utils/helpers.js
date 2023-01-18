@@ -25,8 +25,8 @@ const isEmpty = (value) => {
 const createJwtAuthToken = user => {
   const contents = {
     _id: _.get(user, "_id", ""),
-    firstName: _.get(user, "firstName", ""),
-    lastName: _.get(user, "lastName", ""),
+    name: _.get(user, "name", ""),
+    mail: _.get(user, "mail", ""),
     createdAt: Date.now()
   }
   const options = {
@@ -43,8 +43,8 @@ const createJwtAuthToken = user => {
   return token
 }
 
-// Verfication token and decode token return user information
-const verifyToken = token => {
+//Verfication token and decode token return user information
+const getMe = token => {
   try {
     const decodedToken = Jwt.verify(token,  Config.config().token.secret)
     console.log({ decodedToken })
@@ -55,6 +55,25 @@ const verifyToken = token => {
   }
 }
 
-const helper = { randomString, isEmpty, createJwtAuthToken, verifyToken }
+const verifyToken = (req, res, next) => {
+  let token = req.headers["x-access-token"];
+  if (!token) {
+    return res.status(403).send({
+      message: "No token provided!"
+    });
+  }
+
+  Jwt.verify(token, Config.config().token.secret, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({
+        message: "Unauthorized!"
+      });
+    }
+    req.userId = decoded.id;
+    next();
+  });
+};
+
+const helper = { randomString, isEmpty, createJwtAuthToken, verifyToken, getMe }
 
 export default helper
