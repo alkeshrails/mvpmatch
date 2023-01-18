@@ -52,7 +52,8 @@ const userLogin = async (req, res)  => {
                 return res.status(200).send({
                     status: true,
                     message: "Logged-in successfully.",
-                    data: { user: users }
+                    data: { user: users },
+                    token: token
                 })
             } else {
                 return res.status(200).send({
@@ -78,7 +79,28 @@ const userLogin = async (req, res)  => {
     }
 }
 
+const getMe = async(req, res) => {
+    const userDetail = Helper.getMe(req.headers['x-access-token']);
+    try {
+        const user = await User.findOne(
+            { _id: userDetail._id },
+            { createdAt: 0, updateAt: 0 }
+        ).populate('productIds')
+        return res.status(200).send({
+            status: true,
+            data: user,
+        })
+    }catch(error) {
+        return res.status(200).send({
+            status: false,
+            message: error.message,
+            data: []
+        })
+    }
+}
+
 export default {
     userRegistration, 
-    userLogin
+    userLogin,
+    getMe
 }

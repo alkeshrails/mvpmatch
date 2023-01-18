@@ -6,7 +6,12 @@ var Schema = mongoose.Schema
 var userSchema = new Schema({
   name: String,
   pass: String,
-  mail: String
+  mail: String,
+  userType: String,
+  productIds: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
+}]
 },{
   timestamps: true
 })

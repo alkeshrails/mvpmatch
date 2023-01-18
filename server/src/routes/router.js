@@ -1,4 +1,5 @@
 import auth from "./authRoutes"
+// import product from "./productRoutes"
 
 const router = (app) => {
   // Authentication routes 
