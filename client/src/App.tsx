@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import { Login } from './features/Login';
-import { Register } from './features/Register';
+import { Login } from './components/Login';
+import { Register } from './components/Register';
+import { VendorDashboard } from './components/VendorDashboard';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ function App() {
         <Route  path="/" element={<Login />}/>
         <Route  path="/Login" element={<Login />}/>
         <Route  path="/Register" element={<Register />}/>
-        <Route  path="/Counter" element={<Counter/>}/>
+        <Route  path="/Vendor-Dashboard" element={<VendorDashboard/>}/>
       </Routes>
     </div>
   );

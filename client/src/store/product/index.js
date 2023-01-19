@@ -2,18 +2,18 @@ import { combineReducers } from "redux"
 import { combineEpics } from "redux-observable"
 
 
-import userReducer, {   createProductEpic, userRegisterEpic } from "./user"
+import productReducer, {   productCreateEpic, productFetchEpic,  ProductUpdateEpic, productDeleteEpic} from "./product"
 
 
-export const UserEpic = combineEpics(
-  userLoginEpic,
-  userRegisterEpic
+export const productEpic = combineEpics(
+    productCreateEpic,
+    productFetchEpic,
+    ProductUpdateEpic,
+    productDeleteEpic
 )
 
-const userRegisterReducer = combineReducers({
- 
-  user: userReducer
- 
+const userProductReducer = combineReducers({
+  product: productReducer
 })
 
-export default userRegisterReducer
+export default userProductReducer
