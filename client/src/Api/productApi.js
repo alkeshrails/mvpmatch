@@ -7,6 +7,7 @@ const config = {
 	}
   };
 
+  //Create product
 export const createProduct = async(data) => {
     try {
        const response = axios.post(`${HOSTNAME}/api/v1/auth/product`, data, config)
@@ -16,6 +17,7 @@ export const createProduct = async(data) => {
     }
 }
 
+//Delete product
 export const deleteProduct = async(data) => {
     try {
        const response = axios.delete(`${HOSTNAME}/api/v1/auth/product?_id=${data._id}`,config)
@@ -25,6 +27,7 @@ export const deleteProduct = async(data) => {
     }
 }
 
+//Update product
 export const updateProduct = async(data) => {
     try {
        const response = axios.put(`${HOSTNAME}/api/v1/auth/product`, data, config)
@@ -34,6 +37,7 @@ export const updateProduct = async(data) => {
     }
 }
 
+//Get product by Id
 export const fetchProductById = async(data) => {
     try {
        const response = axios.get(`${HOSTNAME}/api/v1/auth/product-by-id`, config)
@@ -43,7 +47,7 @@ export const fetchProductById = async(data) => {
     }
 }
 
-
+//Get all product
 export const fetchProduct = async(data) => {
    try {
       const response = axios.get(`${HOSTNAME}/api/v1/auth/product`, config)
@@ -53,6 +57,7 @@ export const fetchProduct = async(data) => {
    }
 }
 
+//Purchase product
 export const purchaseProduct = async(data) => {
    try {
       const response = axios.post(`${HOSTNAME}/api/v1/auth/purchase-product`, data, config)
@@ -62,6 +67,7 @@ export const purchaseProduct = async(data) => {
    }
 }
 
+//Deposit amount
 export const depositAmount = async(data) => {
    try {
       const response = axios.post(`${HOSTNAME}/api/v1/auth/deposit`, data, config)

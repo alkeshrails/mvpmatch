@@ -7,7 +7,7 @@ const config = {
 	}
   };
 
-
+//Login user
  export const LogIn = async(data) => {
      try {
         const response = axios.post(`${HOSTNAME}/api/v1/auth/login`, data)
@@ -17,6 +17,7 @@ const config = {
      }
 }
 
+//Sign user
  export const signUp = data => {
    try {
       const response = axios.post(`${HOSTNAME}/api/v1/auth/register`, data)
@@ -26,6 +27,7 @@ const config = {
    }
 }
 
+//Get me to get login user detail
 export const getMe = async(data) => {
    try {
       const response = axios.get(`${HOSTNAME}/api/v1/auth/getMe`, config)
