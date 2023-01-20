@@ -17,5 +17,6 @@ router.put(baseUrl + '/product', [Helper.verifyToken], ProductController.updateP
 router.delete(baseUrl + '/product', [Helper.verifyToken], ProductController.deleteProduct)
 router.post(baseUrl + '/purchase-product', [Helper.verifyToken], ProductController.purchaseProduct)
 router.get(baseUrl + '/product-by-id', [Helper.verifyToken], ProductController.getProductsById)
+router.post(baseUrl + '/deposit', [Helper.verifyToken], ProductController.depositAmount)
 
 export default router

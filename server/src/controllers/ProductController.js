@@ -3,7 +3,6 @@ import _ from 'lodash'
 
 import Product from '../models_mongo/Product'
 import User from '../models_mongo/User'
-import DepositAmount from '../models_mongo/depositAmount'
 import Helper from '../utils/helpers'
 
 const addProduct = async (req, res) => {

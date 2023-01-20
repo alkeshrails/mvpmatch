@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../store/user/user/duck/actions";
+import { LogIn } from "../Api/authApi";
+import _ from 'lodash';
 
 export function Login() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<any>({})
-    const dispatch = useDispatch();
-    const { user } = useSelector((state:any) => state?.user)
+    const [user, setUser] = useState<any>({})
     const naviate = useNavigate();
 
-    const handleSubmit=(event:any)=> {
+    const handleSubmit=async(event:any)=> {
         event.preventDefault()
         const err: any = {}
         if (email === '' || email.trim() === '') {
@@ -25,16 +24,24 @@ export function Login() {
         }
         setError(err);
         if (!Object.keys(err).length) {
-            dispatch(userLogin({mail: email, pass: password}))
+            const response = await LogIn({mail: email, pass: password})
+            if(response.status === 200) {
+                localStorage.setItem('token', _.get(response,'data.token',''));
+                if(response?.data?.data?.user?.userType === 'admin'){
+                    naviate('/seller-Dashboard')
+                }
+                if(response?.data?.data?.user?.userType === 'user'){
+                    naviate('/buyer-Dashboard')
+                }
+            }
         }
     }
 
     return(
         <div>
-            <div className="col-md-6 col-md-offset-3">
-            <h2>Login</h2>
-            <h2 className="error-block">{user?.loginMessage}</h2>
-            <form name="form" onSubmit={handleSubmit}>
+            <div className="col-md-6 col-md-offset-3 auth_box">
+            <h2 className="box-title">Login</h2>
+            <form name="form" className="auth_form" onSubmit={handleSubmit}>
                 <div className={'form-group'}>
                     <label htmlFor="email">Email</label>
                     <input type="text" className="form-control" name="email"  onChange={(e) => setEmail(e.target.value)}/>  

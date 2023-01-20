@@ -41,3 +41,74 @@
 .error-block {
   color: red;
 }
+
+.paddingLeft{
+	padding-left: 22px; 
+}
+.auth_box {
+  padding: 20px;
+    border: 1px solid #c1c1c1;
+    margin-top: 100px;
+    border-radius: 20px;
+
+}
+.error-block {
+  text-align: left;
+}
+.box-title {
+  color: #337ab7;
+}
+.auth_form label, .dip-form label{
+  float: left;
+  width: 100%;
+  text-align: left;
+}
+.auth_form select, .dip-form select
+{
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.buyer-saler-table {
+  width: 100%;
+}
+.buyer-saler-table th {
+  padding: 10px;
+  background-color: #f1f1f1;
+}
+.buyer-saler-table td {
+  text-align: left;
+  padding: 10px;
+  width: 100px;  
+}
+.buyer-saler-table td button{
+  width: 100%;
+}
+.buyer-saler-table td:last-child{
+  max-width: 120px;  
+}
+.product-listview  {
+  margin-top: 30px;
+}
+.product-listview .product-title {
+  text-align: left;
+
+  color: #337ab7;
+}
+.product-action {
+  display: flex;
+}
+.product-action .product-title{
+  flex: 1;
+}
+.saler-table .action {
+  max-width: 50px !important;
+  text-align: center;
+}

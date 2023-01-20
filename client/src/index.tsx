@@ -1,22 +1,21 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDom from 'react-dom/client';
 import { Provider } from 'react-redux';
-import store from "./store"
+//import store from "./store"
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import { BrowserRouter as Router } from "react-router-dom";
 
-const container = document.getElementById('root')!;
-const root = createRoot(container);
+//@ts-ignore
+const root = ReactDom.createRoot(document?.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>
 );
 
