@@ -29,6 +29,7 @@ export function BuyerDashboard() {
         }
     },[])
 
+    //get products 
     const getProducts = async() => {
         try {
             setIsLoading(true)
@@ -63,6 +64,7 @@ export function BuyerDashboard() {
         }
     } 
 
+    //Purchase product
     const handlePurchaseProduct = async()=> {
         const payload = {
             "productIds": [{"_id": selectedProduct._id}],
@@ -88,6 +90,7 @@ export function BuyerDashboard() {
       }
 	}
 
+    //Depost amount
     const handleSubmit=async(event:any)=> {
         event.preventDefault()
         const response = await depositAmount({amount});
@@ -109,12 +112,13 @@ export function BuyerDashboard() {
               });
         }
     }
-
+    //Open deposit model
     const handleDepositModal=async(data:any) => {
         setSelectedProduct(data);
         setPurchaseModal(true)
     }
 
+    //Handle signout
     const handleSignOut=async() => {
         localStorage.removeItem('token');
         naviate('/login')

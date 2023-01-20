@@ -11,7 +11,7 @@ export function Register() {
     const [error, setError] = useState<any>({})
     const naviate = useNavigate();
 
-
+    //Register user
     const handleSubmit=async(event:any)=> {
         event.preventDefault()
         const err: any = {}

@@ -32,6 +32,7 @@ export function SellerDashboard() {
         }
     },[])
 
+    //Fetching products
     const getProducts = async() => {
         setIsLoading(true)
         try {
@@ -52,6 +53,7 @@ export function SellerDashboard() {
         }
     } 
 
+    //Add product
     const handleSubmit=async(event:any)=> {
         event.preventDefault()
         const err: any = {}
@@ -84,6 +86,7 @@ export function SellerDashboard() {
         getProducts();
     }
 
+    //Delete product
     const showDeleteConfirm = async(data:any)=> {
 	    confirm({
 	      title: 'Are you sure delete this Product?',
@@ -103,7 +106,8 @@ export function SellerDashboard() {
 	      },
 	    });
 	}
-
+    
+    //Edit product
     const showEditModal = (data:any) => {
 	    setEditProductModal(true)
         setTitle(data.title)  
