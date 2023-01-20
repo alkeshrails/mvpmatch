@@ -3,6 +3,7 @@ import _ from 'lodash'
 
 import Product from '../models_mongo/Product'
 import User from '../models_mongo/User'
+import DepositAmount from '../models_mongo/depositAmount'
 import Helper from '../utils/helpers'
 
 const addProduct = async (req, res) => {
@@ -54,8 +55,8 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {     
     try {
-        const tickets = await Product.remove(
-            { _id: req.body._id }
+        const tickets = await Product.deleteOne(
+            { _id: req.query._id }
         )      
         return res.status(200).json({
             status: true,
@@ -73,6 +74,8 @@ const deleteProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {   
     try{
+        const userDetail = Helper.getMe(req.headers['x-access-token']);
+
         const products = await Product.find({})
         return res.status(200).json({
             status: true,
@@ -91,7 +94,7 @@ const getProducts = async (req, res) => {
 const getProductsById = async (req, res) => {
     try{
         const userDetail = Helper.getMe(req.headers['x-access-token']);
-        const products = await Product.find({userId: userDetail._id})
+        const products = await Product.find({userId: userDetail._id, userType: userDetail.userType})
         return res.status(200).json({
             status: true,
             message: "Product fetched successfully.",
@@ -109,11 +112,41 @@ const getProductsById = async (req, res) => {
 const purchaseProduct =  async (req, res) => {
     try {
         const userDetail = Helper.getMe(req.headers['x-access-token']);
-        const user = await User.update({_id: userDetail._id},{$push: {productIds: req.body.productIds}})
+        const userDepositedAmount = await User.findOne({_id: userDetail._id});
+        let totalAmount = userDepositedAmount.amount ? userDepositedAmount.amount : 0;
+        if(totalAmount && totalAmount >= req.body.amount) {
+            const remainingAmount = totalAmount - req.body.amount;
+            const user = await User.update({_id: userDetail._id},{$set:{remainingAmount: remainingAmount, amount: remainingAmount}, $push: {productIds: req.body.productIds}})
+            return res.status(200).send({
+                status: true,
+                message: "Product purchased.",
+            }) 
+        }else {
+            return res.status(200).send({
+                status: true,
+                message: "you have not sufficient amount",
+            }) 
+        }
+    }catch(error) {
+        return res.status(200).send({
+            status: false,
+            message: error.message,
+            data: []
+        })
+    }
+}
+
+const depositAmount = async(req, res) => {
+    try {
+        const userDetail = Helper.getMe(req.headers['x-access-token']);
+        const userAmount = await User.findOne({_id: userDetail._id});
+        let totalAmount = req.body.amount + (userAmount.amount ? userAmount.amount : 0);
+        const deposit = await User.update({_id: userDetail._id},{$set: {amount: totalAmount, remainingAmount: totalAmount}})
         return res.status(200).send({
             status: true,
-            message: "Product purchased.",
-        }) 
+            message: "Deposit amount .",
+        })
+         
     }catch(error) {
         return res.status(200).send({
             status: false,
@@ -129,5 +162,6 @@ export default {
     getProducts,
     deleteProduct,
     purchaseProduct,
-    getProductsById
+    getProductsById,
+    depositAmount
 }

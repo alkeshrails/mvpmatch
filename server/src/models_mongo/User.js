@@ -8,10 +8,12 @@ var userSchema = new Schema({
   pass: String,
   mail: String,
   userType: String,
-  productIds: [{
+  productIds: [{  
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product'
-}]
+  }],
+  remainingAmount: Number,
+  amount: Number
 },{
   timestamps: true
 })

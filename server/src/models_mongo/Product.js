@@ -8,7 +8,7 @@ var productSchema = new Schema({
   description: String,
   imgUrl: String,
   prize: String,
-  userId: { type: Schema.ObjectId, ref: 'User' }
+  userId: { type: Schema.ObjectId, ref: 'User' },
 },{
   timestamps: true
 })
