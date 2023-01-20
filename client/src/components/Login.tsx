@@ -42,7 +42,7 @@ export function Login() {
         <div>
             <div className="col-md-6 col-md-offset-3 auth_box">
             <h2 className="box-title">Login</h2>
-            <form name="form" className="auth_form" onSubmit={handleSubmit}>
+            <form name="form" className="auth_form" onSubmit={handleSubmit} data-testid="form">
                 <div className={'form-group'}>
                     <label htmlFor="email">Email</label>
                     <input type="text" className="form-control" name="email"  onChange={(e) => setEmail(e.target.value)}/>  

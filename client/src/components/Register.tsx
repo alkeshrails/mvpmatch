@@ -42,7 +42,7 @@ export function Register() {
     return(
         <div className="col-md-6 col-md-offset-3 auth_box">
         <h2 className="box-title">User Register</h2>
-        <form className="auth_form" name="form" onSubmit={handleSubmit}>
+        <form className="auth_form" name="form" onSubmit={handleSubmit} data-testid="register-form">
         <div className={'form-group'}>
             <label htmlFor="userName">Username</label>
             <input type="text" className="form-control" name="userName"  onChange={(e) => setUserName(e.target.value)}/>

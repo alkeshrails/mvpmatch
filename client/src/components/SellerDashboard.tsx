@@ -123,7 +123,7 @@ export function SellerDashboard() {
 
     return(
         <div>
-            <div className="col-md-6 col-md-offset-3 product-listview">
+            <div className="col-md-6 col-md-offset-3 product-listview" data-testid="seller-id">
             <div className="product-action">
                 <h2 className="product-title">Products</h2>
                 <form  name="form">
@@ -163,7 +163,7 @@ export function SellerDashboard() {
               {!isLoading && products.length === 0 && <h2>No products created by you</h2>}
                <Modal
 		          title="Create Product"
-		          visible={createProductModal}
+		          open={createProductModal}
 		          onOk={(event) => handleSubmit(event)}
 		          onCancel={()=>setCreateProductModal(!createProductModal)}
 	           >
@@ -193,7 +193,7 @@ export function SellerDashboard() {
 	           </Modal>
                <Modal
 		          title="Edit Product"
-		          visible={editProductModal}
+		          open={editProductModal}
 		          onOk={(event)=>handleSubmit(event)}
 		          onCancel={()=>setEditProductModal(false)}
 	           >

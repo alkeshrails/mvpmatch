@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -56,5 +57,10 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.191"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }

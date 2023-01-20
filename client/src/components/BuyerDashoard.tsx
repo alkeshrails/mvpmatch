@@ -125,7 +125,7 @@ export function BuyerDashboard() {
     }
 
     return(
-        <div className="col-md-6 col-md-offset-3 product-listview">
+        <div className="col-md-6 col-md-offset-3 product-listview" data-testid="buyer-id">
             <div className="product-action">
             <h2 className="product-title">Products</h2>
             <div className="form-group">
@@ -170,7 +170,7 @@ export function BuyerDashboard() {
               {!isLoading && products.length === 0 && <h2>No products purchased by you</h2>}
               <Modal
 		          title="Deposit Amount"
-		          visible={depositModal}
+		          open={depositModal}
 		          onOk={(event) => handleSubmit(event)}
 		          onCancel={()=>setDepositModal(!depositModal)}
 	           >
@@ -190,7 +190,7 @@ export function BuyerDashboard() {
 	           </Modal>
                <Modal
 		          title="Purchase Product"
-		          visible={purchaseModal}
+		          open={purchaseModal}
 		          onOk={() => handlePurchaseProduct()}
 		          onCancel={()=>setPurchaseModal(!purchaseModal)}
 	           >
