@@ -28,8 +28,7 @@ export function SellerDashboard() {
     React.useEffect(()=>{
         setIsLoading(true)
         if(products.length === 0) {
-            //setTimeout(getProducts, 3000);
-            getProducts()
+            setTimeout(getProducts, 3000)
         }
     },[])
 

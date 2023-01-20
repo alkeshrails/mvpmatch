@@ -70,14 +70,14 @@ export function BuyerDashboard() {
         }
       const response = await purchaseProduct(payload)
       if(response.status === 200) {
+        getProducts()
         setPurchaseModal(false)
         notification.success({
-            message: 'Product Purchased',
+            message: response.data.message,
             onClick: () => {
               console.log('Notification Clicked!');
             },
           });
-        getProducts()
       }else {
         notification.error({
             message: 'Network Error',
@@ -127,6 +127,7 @@ export function BuyerDashboard() {
             <div className="form-group">
 		         <Button  className="btn btn-primary" onClick={()=>setDepositModal(true)}>Deposit Amount</Button>
                  <Button  className="btn btn-primary" onClick={()=>handleSignOut()}>Signout</Button>
+                 <Button  className="btn btn-primary" onClick={()=>handleSignOut()}>Remaining Amount({me?.remainingAmount})</Button>
 		    </div>
             </div>
             {isLoading && <Spin indicator={antIcon} size="large"/>}
@@ -138,6 +139,7 @@ export function BuyerDashboard() {
                         <th className='paddingLeft'>{'Description'}</th>
                         <th className='paddingLeft'>{'Prize'}</th>
                         <th className='paddingLeft'>{'Purchase'}</th>
+                        
                     </tr>
                     </thead>
                     <tbody>

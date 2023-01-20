@@ -27,10 +27,10 @@ export function Login() {
             const response = await LogIn({mail: email, pass: password})
             if(response.status === 200) {
                 localStorage.setItem('token', _.get(response,'data.token',''));
-                if(response?.data?.data?.user?.userType === 'admin'){
+                if(response?.data?.data?.user?.userType === 'seller'){
                     naviate('/seller-Dashboard')
                 }
-                if(response?.data?.data?.user?.userType === 'user'){
+                if(response?.data?.data?.user?.userType === 'buyer'){
                     naviate('/buyer-Dashboard')
                 }
             }
